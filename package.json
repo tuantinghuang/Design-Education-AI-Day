@@ -1,21 +1,22 @@
 {
-  "name": "design-education-ai-day",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tuantinghuang/Design-Education-AI-Day.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/tuantinghuang/Design-Education-AI-Day/issues"
-  },
-  "homepage": "https://github.com/tuantinghuang/Design-Education-AI-Day#readme"
+	"name": "design-education-ai-day",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "node build.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/tuantinghuang/Design-Education-AI-Day.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/tuantinghuang/Design-Education-AI-Day/issues"
+	},
+	"homepage": "https://github.com/tuantinghuang/Design-Education-AI-Day#readme"
 }
