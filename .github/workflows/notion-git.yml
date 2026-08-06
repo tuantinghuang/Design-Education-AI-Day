@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Fetch Notion content
-        uses: nature-of-code/fetch-notion@main
+        uses: tuantinghuang/fetch-notion@main
         with:
           notion-secret: ${{ secrets.NOTION_SECRET }}
           notion-database-id: ${{ secrets.NOTION_DATABASE_ID }}
