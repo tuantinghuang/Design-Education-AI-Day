@@ -17,6 +17,12 @@
 	--color-gray: #666;
 	--color-light-gray: #f5f5f5;
 	--color-yellow: #faffc8;
+	--color-pink: #f186ef;
+	--border: 0.5px solid var(--color-gray);
+	--font-size-h1: 2.8rem;
+	--font-size-h2: 2rem;
+	--font-size-h3: 1.7rem;
+	--font-size-p: 1.2rem;
 }
 
 html {
@@ -25,13 +31,25 @@ html {
 body {
 	font-family: 'Sligoil', sans-serif;
 }
-h1,
-h2,
+h1 {
+	font-weight: 600;
+	font-size: var(--font-size-h1);
+}
+h2 {
+	font-weight: 600;
+	font-size: var(--font-size-h2);
+}
 h3 {
 	font-weight: 400;
+	font-size: var(--font-size-h3);
 }
-p {
+p,
+li {
 	font-family: 'Arial', sans-serif;
+	font-size: var(--font-size-p);
+	margin-bottom: 10px;
+	line-height: 1.5;
+	list-style-position: inside;
 }
 section {
 	margin: 40px;
@@ -39,14 +57,14 @@ section {
 
 #intro {
 	background-color: var(--color-light-gray);
-	border: 0.5px solid var(--color-gray);
+	border: var(--border);
 	padding: 20px;
 }
 
 .module {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	border: 0.5px solid var(--color-gray);
+	border: var(--border);
 }
 .card {
 	height: 250px;
@@ -70,24 +88,168 @@ section {
 
 section[data-type='article'] {
 	display: grid;
+	grid-template-columns: 1fr 1fr;
 	grid-template-areas:
+		'article-header article-header'
 		'highlight  activity-format'
-		'outcome outcome-image'
+		'outcome outcome'
 		'action future-activity';
+}
+section[data-type='article'] > div {
+	padding: 20px;
+	border: var(--border);
+}
+/*
+     article header 
+*/
+
+div[data-type='article-header'] {
+	grid-area: article-header;
+	min-height: 480px;
+	position: relative;
+}
+div[data-type='article-header'] > h1 {
+	width: 50%;
+	padding: 50px 0;
+}
+.event {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px 20px;
+	width: 30%;
+	background-color: var(--color-yellow);
+}
+.author {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 20px 20px;
+}
+.date {
+	position: absolute;
+	bottom: 30px;
+	left: 0;
+	padding: 20px 20px;
 }
 
 div[data-type='highlight'] {
 	grid-area: highlight;
+	background-color: var(--color-yellow);
 }
 div[data-type='activity-format'] {
 	grid-area: activity-format;
 }
-div[data-type='outcome'] {
-	grid-area: outcome;
-}
+
 div[data-type='action'] {
 	grid-area: action;
 }
 div[data-type='future-activity'] {
 	grid-area: future-activity;
+}
+
+/*
+     section: outcome 
+*/
+
+div[data-type='outcome'] {
+	grid-area: outcome;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 0;
+	row-gap: 0;
+	align-items: start;
+	padding: 0 !important;
+}
+
+div[data-type='outcome'] > * {
+	grid-column: 1;
+	padding: 20px;
+}
+/* expand subsections */
+details {
+	border-bottom: var(--border);
+}
+summary {
+	position: relative;
+	cursor: pointer;
+
+	anchor-name: --summary;
+	&::marker {
+		content: '';
+	}
+
+	&::before,
+	&::after {
+		/* Custom marker dimensions */
+		content: '';
+		border-block-start: 3px solid var(--color-pink);
+		height: 0;
+		width: 1rem;
+
+		/* Positions the lines */
+		inset-block-start: 50%;
+		inset-inline-end: 0;
+
+		/* Anchor the shape to the summary */
+		position: absolute;
+		position-anchor: --summary;
+		position-area: top end;
+	}
+
+	/* Rotate just the ::after line to create a "+"" shape */
+	&::after {
+		transform: rotate(90deg);
+		transform-origin: 50%;
+	}
+}
+details[open] {
+	padding-bottom: 20px;
+}
+
+details[open] summary::after {
+	transform: rotate(0deg);
+}
+
+details[open] summary ~ * {
+	animation: fade 0.5s ease-in-out;
+}
+
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+details:hover {
+	background-color: var(--color-yellow);
+}
+
+/* figure */
+
+div[data-type='outcome'] > figure {
+	grid-column: 2;
+	grid-row: 1 / span 100; /* span all text rows so it can be full-height */
+	align-self: start; /* pin it to the top of the right column */
+	margin: 0;
+	padding: 0;
+}
+div[data-type='outcome'] > figure img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+div[data-type='outcome'] > figure figcaption {
+	background-color: var(--color-yellow);
+	padding: 20px;
+	border-top: var(--border);
+}
+
+/* responsive */
+@media (max-width: 780px) {
+	div[data-type='outcome'] {
+		display: block;
+	}
 }
