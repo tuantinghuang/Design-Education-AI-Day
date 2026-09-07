@@ -15,12 +15,12 @@ const FOOTER_TEMPLATE = fs.readFileSync(
 
 // root-level pages: template file -> [output path, <title>]
 const ROOT_PAGES = [
-	['home.html', './index.html', 'Design Education x AI Day'],
-	['about.html', './about.html', 'About | Design Education x AI Day'],
+	['home.html', './index.html', 'Design Education x AI'],
+	['about.html', './about.html', 'About | Design Education x AI'],
 	[
 		'organization.html',
 		'./organization.html',
-		'Organization | Design Education x AI Day',
+		'Organization | Design Education x AI',
 	],
 ];
 
@@ -28,13 +28,20 @@ const ROOT_PAGES = [
 const render = (template, prefix) =>
 	template.replace(/\{\{prefix\}\}/g, prefix);
 
+const deriveTitle = (f) =>
+	f
+		.replace('.html', '')
+		.replace(/_/g, ' ')
+		.replace(/\b\w/g, (c) => c.toUpperCase());
+
 const wrapHTML = (title, body, prefix) => `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${title} | Design Education x AI Day</title>
+    <title>${title} | Design Education x AI</title>
     <link rel="stylesheet" href="${prefix}style.css" />
+	<link rel="icon" type="image/svg+xml" href="${prefix}favicon.svg" />
   </head>
   <body>
     <!-- HEADER:START -->
@@ -67,11 +74,7 @@ files.forEach((f) => {
 
 	// Bare fragment (fresh Notion export) — wrap fully, header/footer included
 	if (!html.includes('<html')) {
-		const title = f
-			.replace('.html', '')
-			.replace(/_/g, ' ')
-			.replace(/\b\w/g, (c) => c.toUpperCase());
-		html = wrapHTML(title, html, prefix);
+		html = wrapHTML(deriveTitle(f), html, prefix);
 		fs.writeFileSync(filePath, html);
 		console.log(`Wrapped ${f}`);
 		return;
@@ -86,6 +89,21 @@ files.forEach((f) => {
 		html = html.replace(
 			'</head>',
 			`  <link rel="stylesheet" href="${prefix}style.css" />\n</head>`,
+		);
+	}
+
+	if (!html.includes(`${prefix}favicon.svg`)) {
+		html = html.replace(
+			'</head>',
+			`  <link rel="icon" type="image/svg+xml" href="${prefix}favicon.svg" />\n</head>`,
+		);
+	}
+
+	const expectedTitle = `${deriveTitle(f)} | Design Education x AI`;
+	if (!html.includes(`<title>${expectedTitle}</title>`)) {
+		html = html.replace(
+			/<title>[\s\S]*?<\/title>/,
+			`<title>${expectedTitle}</title>`,
 		);
 	}
 
@@ -135,6 +153,7 @@ ROOT_PAGES.forEach(([templateFile, outputPath, title]) => {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>${title}</title>
 		<link rel="stylesheet" href="style.css" />
+		<link rel="icon" type="image/svg+xml" href="favicon.svg" />
 	</head>
 	<body>
 		${render(HEADER_TEMPLATE, '')}
