@@ -59,7 +59,7 @@ section {
 
 header {
 	display: flex;
-	align-items: start;
+	justify-content: space-between;
 	gap: 40px;
 	margin: 40px;
 }
@@ -67,6 +67,7 @@ header {
 	flex: 1 1 auto;
 	min-width: 0;
 	margin: 0;
+	max-width: 67vw;
 }
 .header-title a {
 	display: flex;
@@ -81,15 +82,19 @@ header {
 	font-size: 4rem;
 	line-height: 1.45;
 }
-/* four triangles, wide at the outer edge and tapering to a point at the center;
-   grows with the available header width, so it's the flexible part of the title */
+/* thin corner-to-corner X; stretches with the available header width (the flexible
+   part of the title) while non-scaling-stroke keeps the line weight constant */
 .title-graphic {
 	flex: 1 1 auto;
 	min-width: 40px;
-	height: 3.5rem;
+	height: 7.5rem;
+	overflow: visible;
 }
 .title-graphic path {
-	fill: var(--color-pink);
+	fill: none;
+	stroke: var(--color-pink);
+	stroke-width: 2px;
+	vector-effect: non-scaling-stroke;
 }
 header nav {
 	flex-shrink: 0;
@@ -220,9 +225,13 @@ footer p {
 	background-color: var(--color-yellow);
 }
 
-section[data-type='article'] {
+section[data-type='article'],
+section[data-type='intro'],
+section[data-type='outro'] {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+}
+section[data-type='article'] {
 	grid-template-areas:
 		'article-header article-header'
 		'highlight  activity-format'
@@ -433,4 +442,55 @@ div[data-type='outcome'] > figure figcaption {
 	div[data-type='outcome'] {
 		display: block;
 	}
+}
+
+section[data-type='intro'] {
+	grid-template-areas:
+		'article-header article-header'
+		'bg  .'
+		'programme timetable';
+
+	border: var(--border);
+}
+
+section[data-type='outro'] {
+	grid-template-areas:
+		'article-header article-header'
+		'reflection .';
+	border: var(--border);
+}
+
+section[data-type='intro'] > div,
+section[data-type='outro'] > div {
+	padding: 20px;
+	position: relative;
+}
+
+section[data-type='intro'] > div[data-type='article-header'],
+section[data-type='outro'] > div[data-type='article-header'] {
+	border: none;
+	border-bottom: var(--border);
+}
+
+.intro-background {
+	grid-area: bg;
+	background-color: var(--color-yellow);
+	border-right: var(--border);
+}
+
+.intro-programme {
+	grid-area: programme;
+	border-right: var(--border);
+	border-top: var(--border);
+}
+
+.intro-timetable {
+	grid-area: timetable;
+	background-color: var(--color-yellow);
+	border-top: var(--border);
+}
+
+.outro-reflection {
+	background-color: var(--color-yellow);
+	border-right: var(--border);
 }
