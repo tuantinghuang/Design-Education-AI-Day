@@ -9,124 +9,126 @@
 	</head>
 	<body>
 		<header>
-	<h1 class="header-title">
-		<a href="index.html">
-			<span>Design<br />Education</span>
-			<svg
-				class="title-graphic"
-				viewBox="0 0 100 100"
-				preserveAspectRatio="none"
-				aria-hidden="true"
-				focusable="false"
+			<h1 class="header-title">
+				<a href="index.html">
+					<span>Design<br />Education</span>
+					<svg
+						class="title-graphic"
+						viewBox="0 0 100 100"
+						preserveAspectRatio="none"
+						aria-hidden="true"
+						focusable="false"
+					>
+						<path d="M0,0 L100,100" />
+						<path d="M100,0 L0,100" />
+					</svg>
+					<span>AI <br />series</span>
+				</a>
+			</h1>
+			<button
+				class="menu-toggle"
+				type="button"
+				aria-expanded="false"
+				aria-controls="site-nav"
+				aria-label="Menu"
 			>
-				<path d="M0,0 L100,100" />
-				<path d="M100,0 L0,100" />
-			</svg>
-			<span>AI <br />series</span>
-		</a>
-	</h1>
-	<button
-		class="menu-toggle"
-		type="button"
-		aria-expanded="false"
-		aria-controls="site-nav"
-		aria-label="Menu"
-	>
-		<span></span>
-		<span></span>
-		<span></span>
-	</button>
-	<nav id="site-nav">
-		<ul>
-			<li><a href="about.html">About</a></li>
-			<li><a href="organization.html">Organization</a></li>
-			<li>
-				<a href="https://designandai.nl/" target="_blank"
-					>Design & AI Symposium</a
-				>
-			</li>
-		</ul>
-	</nav>
-	<script>
-		document.querySelector('.menu-toggle').addEventListener('click', (e) => {
-			const open = e.currentTarget.getAttribute('aria-expanded') !== 'true';
-			e.currentTarget.setAttribute('aria-expanded', open);
-			e.currentTarget.closest('header').classList.toggle('menu-open', open);
-		});
-	</script>
-</header>
-
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+			<nav id="site-nav">
+				<ul>
+					<li><a href="about.html">About</a></li>
+					<li><a href="organization.html">Organization</a></li>
+					<li>
+						<a href="https://designandai.nl/" target="_blank"
+							>Design & AI Symposium</a
+						>
+					</li>
+				</ul>
+			</nav>
+			<script>
+				document
+					.querySelector('.menu-toggle')
+					.addEventListener('click', (e) => {
+						const open =
+							e.currentTarget.getAttribute('aria-expanded') !== 'true';
+						e.currentTarget.setAttribute('aria-expanded', open);
+						e.currentTarget
+							.closest('header')
+							.classList.toggle('menu-open', open);
+					});
+			</script>
+		</header>
 
 		<section id="intro">
-	<div>
-		In response to the impact and challenges that AI brings to design
-		classrooms, we wanted to organize a day that leaves more room for direct
-		conversation and tangible practice, rather than talks and keynotes. The
-		programme centres on guided discussions, hands-on workshops, and moments of
-		collaborative co-creation, organised around experiences that educators are
-		navigating right now.
-	</div>
-</section>
-<section class="event-heading">
-	<h2>#1 Design Education x AI Day (Pilot)</h2>
-	<p>June 8th, 2026</p>
-</section>
-<section class="module">
-	<a href="./content/dexai_pilot_intro.html" class="card card__highlight">
-		<h3 class="card-title">Programme Overview</h3>
-	</a>
-	<a href="./content/acknowledging_ai.html" class="card">
-		<h3 class="card-title">Acknowledging AI</h3>
-	</a>
-	<a href="./content/code_of_conduct_design_educators.html" class="card">
-		<h3 class="card-title">Code of Conduct Design Educators</h3>
-	</a>
-	<a href="./content/critical_thinking.html" class="card">
-		<h3 class="card-title">Critical Thinking</h3>
-	</a>
-	<a href="./content/intro_to_ai_workshop.html" class="card">
-		<h3 class="card-title">Intro to AI Workshop</h3>
-	</a>
-	<a href="./content/relationship_with_AI.html" class="card">
-		<h3 class="card-title">Relationship with AI</h3>
-	</a>
-	<a href="./content/what_makes_design_unique.html" class="card">
-		<h3 class="card-title">What Makes Design Unique</h3>
-	</a>
-	<a href="./content/dexai_pilot_outro.html" class="card card__highlight">
-		<h3 class="card-title">Outro & Reflection</h3>
-	</a>
-</section>
-
+			<div>
+				In response to the impact and challenges that AI brings to design
+				classrooms, we wanted to organize a day that leaves more room for direct
+				conversation and tangible practice, rather than talks and keynotes. The
+				programme centres on guided discussions, hands-on workshops, and moments
+				of collaborative co-creation, organised around experiences that
+				educators are navigating right now.
+			</div>
+		</section>
+		<section class="event-heading">
+			<h2>#1 Design Education x AI Day (Pilot)</h2>
+			<p>June 8th, 2026</p>
+		</section>
+		<section class="module">
+			<a href="./content/dexai_pilot_intro.html" class="card card__highlight">
+				<h3 class="card-title">Programme Overview</h3>
+			</a>
+			<a href="./content/acknowledging_ai.html" class="card">
+				<h3 class="card-title">Acknowledging AI</h3>
+			</a>
+			<a href="./content/code_of_conduct_design_educators.html" class="card">
+				<h3 class="card-title">Code of Conduct Design Educators</h3>
+			</a>
+			<a href="./content/critical_thinking.html" class="card">
+				<h3 class="card-title">Critical Thinking</h3>
+			</a>
+			<a href="./content/intro_to_ai_workshop.html" class="card">
+				<h3 class="card-title">Intro to AI Workshop</h3>
+			</a>
+			<a href="./content/relationship_with_AI.html" class="card">
+				<h3 class="card-title">Relationship with AI</h3>
+			</a>
+			<a href="./content/what_makes_design_unique.html" class="card">
+				<h3 class="card-title">What Makes Design Unique</h3>
+			</a>
+			<a href="./content/dexai_pilot_outro.html" class="card card__highlight">
+				<h3 class="card-title">Outro & Reflection</h3>
+			</a>
+		</section>
 
 		<footer id="footer">
-	<div class="left">
-		<nav>
-			<ul>
-				<li><a href="about.html">About</a></li>
-				<li><a href="organization.html">Organization</a></li>
-				<li>
-					<a href="https://designandai.nl/" target="_blank"
-						>Design & AI Symposium</a
-					>
-				</li>
-			</ul>
-		</nav>
-	</div>
-	<div class="right">
-		<b>Partners</b>
-		<ul>
-			<li>Eindhoven University of Technology</li>
-			<li>TU Delft</li>
-			<li>University of Twente</li>
-			<li>Wageningen University & Research</li>
-			<li>Design United</li>
-		</ul>
-	</div>
-	<div class="copyright">
-		<p>&copy; 2026 Design Education x AI</p>
-	</div>
-</footer>
-
+			<div class="left">
+				<nav>
+					<ul>
+						<li><a href="about.html">About</a></li>
+						<li><a href="organization.html">Organization</a></li>
+						<li>
+							<a href="https://designandai.nl/" target="_blank"
+								>Design & AI Symposium</a
+							>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<div class="right">
+				<b>Partners</b>
+				<ul>
+					<li>Eindhoven University of Technology</li>
+					<li>TU Delft</li>
+					<li>University of Twente</li>
+					<li>Wageningen University & Research</li>
+					<li>Design United</li>
+				</ul>
+			</div>
+			<div class="copyright">
+				<p>&copy; 2026 Design Education x AI</p>
+			</div>
+		</footer>
 	</body>
 </html>
