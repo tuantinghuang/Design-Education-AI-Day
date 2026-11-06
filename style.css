@@ -52,6 +52,13 @@
 	--label-column: 25%;
 }
 
+/* phones: tighter side margins */
+@media (max-width: 768px) {
+	:root {
+		--page-margin: var(--space-s);
+	}
+}
+
 body {
 	font-family: var(--font-family-body);
 	font-size: var(--font-size-p);
