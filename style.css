@@ -19,68 +19,121 @@
 	--color-yellow: #faffc8;
 	--color-pink: #f186ef;
 	--border: 0.5px solid var(--color-gray);
-	--font-size-h1: 2.8rem;
-	--font-size-h2: 2rem;
-	--font-size-h3: 1.7rem;
-	--font-size-p: 1.2rem;
+
+	--font-family-display: 'Sligoil', sans-serif;
+	--font-family-body: 'Arial', sans-serif;
+	--font-weight-regular: 400;
+	--font-weight-medium: 600;
+	--font-weight-bold: 800;
+	--font-weight-heading: var(--font-weight-regular);
+	/* fluid sizes: clamp(smallest, scales with the screen, largest). Headings and body
+	   text grow evenly from their smallest at a 400px screen to their largest at 1440px;
+	   the site title scales with screen width alone. Captions stay at 1rem, the
+	   smallest size that reads comfortably */
+	--font-size-display: clamp(1.5rem, 6vw, 4rem);
+	--font-size-h1: clamp(2rem, 1.692rem + 1.231vw, 2.8rem);
+	--font-size-h2: clamp(1.5rem, 1.308rem + 0.769vw, 2rem);
+	--font-size-h3: clamp(1.3rem, 1.146rem + 0.615vw, 1.7rem);
+	--font-size-p: clamp(1rem, 0.923rem + 0.308vw, 1.2rem);
 	--font-size-caption: 1rem;
+	--line-height-display: 1.45;
+	--line-height-heading: 1.2;
+	--line-height-body: 1.5;
+
+	--space-xs: 10px;
+	--space-s: 20px;
+	--space-m: 40px;
+	--space-l: 80px;
+	--space-xl: 100px;
+	--space-paragraph: 1em;
+	--page-margin: var(--space-m);
+	--section-padding: var(--space-s);
+	--divider-inset: 15px;
+	--label-column: 25%;
 }
 
-html {
-	font-family: 'Inter', sans-serif;
-}
 body {
-	font-family: 'Sligoil', sans-serif;
+	font-family: var(--font-family-body);
+	font-size: var(--font-size-p);
+	line-height: var(--line-height-body);
+}
+/* Sligoil for headings, navigation and small labels; Arial for running text */
+h1,
+h2,
+h3,
+header nav,
+footer,
+.event-heading p,
+.card-caption,
+.event,
+.author,
+.date,
+figcaption {
+	font-family: var(--font-family-display);
+}
+h1,
+h2,
+h3 {
+	margin: 0 0 var(--space-s);
+	font-weight: var(--font-weight-heading);
+	line-height: var(--line-height-heading);
 }
 h1 {
-	font-weight: 600;
 	font-size: var(--font-size-h1);
 }
 h2 {
-	font-weight: 600;
 	font-size: var(--font-size-h2);
 }
 h3 {
-	font-weight: 400;
 	font-size: var(--font-size-h3);
 }
 p,
-li,
 ul {
-	font-family: 'Arial', sans-serif;
-	font-size: var(--font-size-p);
-	margin-bottom: 10px;
-	line-height: 1.5;
+	margin: 0 0 var(--space-paragraph);
+}
+ul {
+	padding: 0;
 	list-style-position: inside;
 }
+li {
+	margin-bottom: var(--space-xs);
+}
+/* Notion exports leave empty paragraphs behind */
+p:empty {
+	display: none;
+}
+/* the last thing in a block adds no space, so bordered sections keep even padding */
+:is(h1, h2, h3, p, ul):last-child,
+:is(h1, h2, h3, p, ul):has(+ p:empty) {
+	margin-bottom: 0;
+}
 section {
-	margin: 40px;
+	margin: var(--page-margin);
 }
 
 header {
 	display: flex;
 	justify-content: space-between;
-	gap: 40px;
-	margin: 40px;
+	gap: var(--space-m);
+	margin: var(--page-margin);
 }
 .header-title {
 	flex: 1 1 auto;
 	min-width: 0;
-	margin: 0;
 	max-width: 67vw;
 }
 .header-title a {
 	display: flex;
 	align-items: center;
-	gap: 40px;
+	gap: var(--space-m);
 	text-decoration: none;
 	color: black;
 }
 .header-title span {
 	flex: 0 0 auto;
-	font-weight: 800;
-	font-size: 4rem;
-	line-height: 1.45;
+	font-weight: var(--font-weight-bold);
+	font-size: var(--font-size-display);
+	line-height: var(--line-height-display);
 }
 /* thin corner-to-corner X; stretches with the available header width (the flexible
    part of the title) while non-scaling-stroke keeps the line weight constant */
@@ -99,17 +152,22 @@ header {
 header nav {
 	flex-shrink: 0;
 }
-header nav ul {
+header nav ul,
+footer ul {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-end;
-	gap: 10px;
+	gap: var(--space-xs);
 	list-style: none;
+}
+header nav li,
+footer li {
+	margin-bottom: 0;
+}
+header nav ul {
+	align-items: flex-end;
 	text-align: right;
 }
 header nav li {
-	margin-bottom: 0;
-	font-family: 'Sligoil', sans-serif;
 	font-size: var(--font-size-caption);
 }
 header nav a {
@@ -120,11 +178,117 @@ header nav a {
 header nav a:hover {
 	color: var(--color-gray);
 }
+.menu-toggle {
+	display: none;
+}
+
+/* tablet: title stacks with one diagonal behind it, nav collapses into a hamburger */
+@media (max-width: 1024px) {
+	header {
+		position: relative;
+		align-items: flex-start;
+	}
+	.header-title {
+		max-width: none;
+	}
+	.header-title a {
+		display: grid;
+		row-gap: var(--space-m);
+		position: relative;
+		isolation: isolate;
+	}
+	.header-title span:last-child {
+		justify-self: end;
+	}
+	.header-title span:last-child br {
+		display: none;
+	}
+	/* fills the title block, drawing only the bottom-left to top-right line; the top
+	   starts level with the capitals in "Design", like the hamburger */
+	.title-graphic {
+		position: absolute;
+		font-size: var(--font-size-display);
+		line-height: var(--line-height-display);
+		--cap-offset: calc((1lh - 1cap) / 2);
+		top: var(--cap-offset);
+		left: 0;
+		width: 100%;
+		height: calc(100% - var(--cap-offset));
+		min-width: 0;
+		z-index: -1;
+	}
+	.title-graphic path:first-child {
+		display: none;
+	}
+
+	.menu-toggle {
+		--menu-line-gap: 12px;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		gap: var(--menu-line-gap);
+		/* top line level with the top of the capitals in "Design": skip the space a
+		   title line leaves above its capitals, using the title's own font metrics */
+		font-family: var(--font-family-display);
+		font-size: var(--font-size-display);
+		line-height: var(--line-height-display);
+		margin-top: calc((1lh - 1cap) / 2);
+		width: 44px;
+		height: 44px;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+		/* stays above the open menu so it can close it */
+		position: relative;
+		z-index: 2;
+	}
+	.menu-toggle span {
+		border-top: 1px solid var(--color-gray);
+		transition:
+			transform 0.2s ease,
+			opacity 0.2s ease;
+	}
+	/* open: top and bottom lines cross into an X, the middle one fades out */
+	.menu-open .menu-toggle span:nth-child(1) {
+		transform: translateY(calc(var(--menu-line-gap) + 1px)) rotate(45deg);
+	}
+	.menu-open .menu-toggle span:nth-child(2) {
+		opacity: 0;
+	}
+	.menu-open .menu-toggle span:nth-child(3) {
+		transform: translateY(calc(-1 * (var(--menu-line-gap) + 1px)))
+			rotate(-45deg);
+	}
+
+	/* open: the menu covers the title area instead of pushing the page down */
+	header nav {
+		display: none;
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		padding-right: calc(44px + var(--space-s));
+	}
+	.menu-open nav {
+		display: block;
+	}
+	/* the title keeps its space so the header doesn't jump, but is hidden while the menu is open */
+	.menu-open .header-title {
+		visibility: hidden;
+	}
+	header nav ul {
+		align-items: flex-start;
+		text-align: left;
+	}
+	header nav li {
+		font-size: var(--font-size-h3);
+	}
+}
 
 footer {
-	display: flex;
-	justify-content: space-between;
-	margin: 40px;
+	grid-template-columns: 1fr 1fr;
+	display: grid;
+	margin: var(--page-margin);
 }
 footer * {
 	font-size: var(--font-size-caption);
@@ -135,16 +299,11 @@ footer .left {
 	justify-content: space-between;
 }
 footer ul {
-	display: flex;
-	flex-direction: column;
 	align-items: flex-start;
-	list-style: none;
-	padding-inline-start: 0;
 }
-footer li {
-	font-weight: 400;
-	font-family: 'Sligoil', sans-serif;
-	list-style-type: none;
+footer .right b {
+	display: block;
+	margin-bottom: var(--space-xs);
 }
 footer a {
 	text-decoration: none;
@@ -155,48 +314,77 @@ footer a:hover {
 }
 
 footer p {
-	font-family: 'Sligoil', sans-serif;
 	color: var(--color-gray);
+}
+@media (max-width: 768px) {
+	footer {
+		grid-template-columns: 1fr;
+		gap: 32px;
+	}
 }
 
 #intro {
 	background-color: var(--color-light-gray);
 	border: var(--border);
-	padding: 20px;
+	padding: var(--section-padding);
+	/* width: 50vw; */
+	margin-top: var(--space-xl);
+	margin-bottom: var(--space-xl);
+}
+
+.event-heading {
+	margin-bottom: var(--space-s);
+}
+.event-heading h2 {
+	margin-bottom: var(--space-xs);
+}
+/* keep the heading close to the grid it titles */
+.event-heading + .module {
+	margin-top: 0;
 }
 
 .module {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	border: var(--border);
+	margin-bottom: var(--space-xl);
 }
 .card {
 	height: 250px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	padding: 0 15px;
+	padding: var(--section-padding);
 	text-decoration: none;
 	color: black;
 	position: relative;
 }
+.card-title {
+	width: 80%;
+}
+.card-caption {
+	font-size: var(--font-size-caption);
+}
+.card__highlight {
+	background-color: var(--color-yellow);
+}
 /* row dividers: full-width, drawn once by the card below the boundary */
 /* column dividers: inset from top/bottom, drawn once by every card but the first in its row */
-@media (min-width: 901px) {
+@media (min-width: 1025px) {
 	.card:nth-child(n + 5) {
 		border-top: var(--border);
 	}
 	.card:not(:nth-child(4n))::after {
 		content: '';
 		position: absolute;
-		top: 15px;
-		bottom: 15px;
+		top: var(--divider-inset);
+		bottom: var(--divider-inset);
 		right: 0;
 		width: 0;
 		border-right: var(--border);
 	}
 }
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
 	.module {
 		grid-template-columns: 1fr 1fr;
 	}
@@ -206,23 +394,31 @@ footer p {
 	.card:not(:nth-child(2n + 1))::before {
 		content: '';
 		position: absolute;
-		top: 15px;
-		bottom: 15px;
+		top: var(--divider-inset);
+		bottom: var(--divider-inset);
 		left: 0;
 		width: 0;
 		border-left: var(--border);
 	}
 }
-.card-title {
-	width: 80%;
-}
-.card-caption {
-	font-weight: 400;
-	font-family: 'Sligoil', sans-serif;
-	font-size: var(--font-size-caption);
-}
-.card__highlight {
-	background-color: var(--color-yellow);
+
+@media (max-width: 768px) {
+	.module {
+		grid-template-columns: 1fr;
+	}
+	.card {
+		height: fit-content;
+	}
+	/* one column: every card after the first starts a new row, and there are no column dividers */
+	.card:nth-child(n + 2) {
+		border-top: var(--border);
+	}
+	.card::before {
+		display: none;
+	}
+	.card-title {
+		width: 100%;
+	}
 }
 
 section[data-type='article'],
@@ -237,45 +433,35 @@ section[data-type='article'] {
 		'highlight  activity-format'
 		'outcome outcome'
 		'action future-direction';
+
+	border: var(--border);
 }
-section[data-type='article'] > div {
-	padding: 20px;
-	border-top: var(--border);
+/* every cell of a bordered article/intro/outro section gets the same padding */
+section[data-type] > div {
+	padding: var(--section-padding);
 	position: relative;
+	/* let cells shrink to the column instead of stretching it to fit their content */
+	min-width: 0;
 }
 /*
-   grid borders & dividers
+   grid borders & dividers: the section draws the outer frame, cells only draw
+   the lines between them, so no two lines ever sit on top of each other
 */
 
-/* outer bottom edge of the grid (last row only) */
-div[data-type='action'],
-div[data-type='future-direction'] {
-	border-bottom: var(--border);
-}
-/* outer left edge of the grid (rightmost/full-span cells only) */
-div[data-type='article-header'],
-div[data-type='outcome'],
-div[data-type='highlight'],
-div[data-type='action'] {
-	border-left: var(--border);
+/* row lines: every cell but the first draws the line above itself */
+section[data-type='article'] > div:not(:first-child) {
+	border-top: var(--border);
 }
 /* vertical divider lines, inset from top/bottom. drawn once per column via the left edge only */
 div[data-type='activity-format']::before,
 div[data-type='future-direction']::before {
 	content: '';
 	position: absolute;
-	top: 15px;
-	bottom: 15px;
+	top: var(--divider-inset);
+	bottom: var(--divider-inset);
 	left: 0;
 	width: 0;
 	border-left: var(--border);
-}
-/* outer right edge of the grid (rightmost/full-span cells only) */
-div[data-type='article-header'],
-div[data-type='outcome'],
-div[data-type='activity-format'],
-div[data-type='future-direction'] {
-	border-right: var(--border);
 }
 
 /*
@@ -289,27 +475,28 @@ div[data-type='article-header'] {
 }
 div[data-type='article-header'] > h1 {
 	width: 50%;
-	padding: 50px 0;
+	padding-top: var(--space-l);
 }
 .event {
 	position: absolute;
 	top: 0;
 	left: 0;
-	padding: 10px 20px;
+	padding: var(--space-xs) var(--section-padding);
 	width: 30%;
+	font-size: var(--font-size-caption);
 	background-color: var(--color-yellow);
 }
-.author {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	padding: 20px 20px;
-}
+.author,
 .date {
 	position: absolute;
-	bottom: 30px;
-	left: 0;
-	padding: 20px 20px;
+	left: var(--section-padding);
+	font-size: var(--font-size-caption);
+}
+.author {
+	bottom: var(--section-padding);
+}
+.date {
+	bottom: calc(var(--section-padding) + 1lh);
 }
 
 div[data-type='highlight'] {
@@ -331,6 +518,9 @@ div[data-type='future-direction'] {
      section: outcome 
 */
 
+section[data-type] > div[data-type='outcome'] {
+	padding: 0;
+}
 div[data-type='outcome'] {
 	grid-area: outcome;
 	display: grid;
@@ -338,15 +528,14 @@ div[data-type='outcome'] {
 	column-gap: 0;
 	row-gap: 0;
 	align-items: start;
-	padding: 0 !important;
 	position: relative;
 }
 /* vertical divider between the text and figure columns, inset from top/bottom */
 div[data-type='outcome']::before {
 	content: '';
 	position: absolute;
-	top: 15px;
-	bottom: 15px;
+	top: var(--divider-inset);
+	bottom: var(--divider-inset);
 	left: 50%;
 	width: 0;
 	border-left: var(--border);
@@ -354,11 +543,56 @@ div[data-type='outcome']::before {
 
 div[data-type='outcome'] > * {
 	grid-column: 1;
-	padding: 20px;
+	padding: var(--section-padding);
 }
+div[data-type='outcome'] > h2,
+summary h3 {
+	margin: 0;
+}
+
+@media (max-width: 1024px) {
+	section[data-type='article'] {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			'article-header'
+			'highlight'
+			'activity-format'
+			'outcome'
+			'action'
+			'future-direction';
+	}
+	div[data-type='outcome'] {
+		display: block;
+	}
+	div[data-type='article-header'] {
+		min-height: 400px;
+	}
+
+	div[data-type='article-header'] > h1 {
+		width: 100%;
+	}
+	.event {
+		width: 50%;
+	}
+	/* one column: no column dividers */
+	div[data-type='activity-format']::before,
+	div[data-type='future-direction']::before,
+	div[data-type='outcome']::before {
+		display: none;
+	}
+	/* the figure now sits below the last box, so it takes over that box's line */
+	div[data-type='outcome'] > figure {
+		border-top: var(--border);
+	}
+}
+
 /* expand subsections */
 details {
 	border-bottom: var(--border);
+}
+/* the last box would otherwise sit on the next row's line or the section's bottom edge */
+details:last-of-type {
+	border-bottom: none;
 }
 summary {
 	position: relative;
@@ -393,8 +627,11 @@ summary {
 		transform-origin: 50%;
 	}
 }
-details[open] {
-	padding-bottom: 20px;
+summary h3 {
+	width: 90%;
+}
+details[open] summary {
+	margin-bottom: var(--space-s);
 }
 
 details[open] summary::after {
@@ -433,15 +670,9 @@ div[data-type='outcome'] > figure img {
 }
 div[data-type='outcome'] > figure figcaption {
 	background-color: var(--color-yellow);
-	padding: 20px;
+	padding: var(--section-padding);
 	border-top: var(--border);
-}
-
-/* responsive */
-@media (max-width: 780px) {
-	div[data-type='outcome'] {
-		display: block;
-	}
+	font-size: var(--font-size-caption);
 }
 
 section[data-type='intro'] {
@@ -460,10 +691,11 @@ section[data-type='outro'] {
 	border: var(--border);
 }
 
-section[data-type='intro'] > div,
-section[data-type='outro'] > div {
-	padding: 20px;
-	position: relative;
+/* Notion exports these subheadings as h1; they sit at the same level as article h2s */
+.intro-background > h1,
+.intro-programme > h1,
+.outro-reflection > h1 {
+	font-size: var(--font-size-h2);
 }
 
 section[data-type='intro'] > div[data-type='article-header'],
@@ -491,6 +723,122 @@ section[data-type='outro'] > div[data-type='article-header'] {
 }
 
 .outro-reflection {
+	grid-area: reflection;
 	background-color: var(--color-yellow);
 	border-right: var(--border);
+}
+
+@media (max-width: 1024px) {
+	section[data-type='intro'] {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			'article-header '
+			'bg '
+			'programme'
+			'timetable';
+	}
+
+	section[data-type='outro'] {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			'article-header'
+			'reflection';
+	}
+	/* one column: these cells now reach the right edge, where the section already
+	   draws the border */
+	.intro-background,
+	.intro-programme,
+	.outro-reflection {
+		border-right: none;
+	}
+}
+
+/* ---------------------------
+
+about & organization pages
+
+----------------------------*/
+
+#about,
+#organization {
+	border: var(--border);
+	padding: var(--section-padding) var(--section-padding) var(--space-l);
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-l);
+}
+#about > h1,
+#organization > h1,
+.organizers > h2,
+.facilitators > h2 {
+	margin: 0;
+}
+#about > div {
+	margin-left: var(--label-column);
+}
+/* label column + three tracks: the second organizer and the third facilitator
+   column share the last track, so both rows line up */
+.organizers,
+.facilitators {
+	display: grid;
+	grid-template-columns: var(--label-column) 7fr 7fr 10fr;
+}
+.facilitators {
+	row-gap: var(--space-s);
+}
+
+.organizer:first-of-type {
+	grid-column: span 2;
+}
+.organizer > img {
+	display: block;
+	width: 175px;
+	aspect-ratio: 3 / 4;
+	object-fit: cover;
+}
+.organizer > h3 {
+	margin-top: var(--space-s);
+}
+.organizer > p {
+	max-width: 80%;
+}
+.facilitators > p {
+	grid-column: 2 / -1;
+	margin: 0;
+}
+/* fills top to bottom, starting a new column after six names */
+.facilitator-list {
+	grid-column: 2 / -1;
+	display: grid;
+	grid-template-columns: subgrid;
+	grid-template-rows: repeat(6, auto);
+	grid-auto-flow: column;
+	margin: 0;
+	list-style: none;
+}
+.facilitator-list li {
+	margin: 0;
+}
+
+@media (max-width: 1024px) {
+	#about > div {
+		margin-left: 0;
+	}
+	.organizers,
+	.facilitators {
+		grid-template-columns: 1fr;
+	}
+	.organizers {
+		row-gap: var(--space-m);
+	}
+	.organizer:first-of-type,
+	.facilitators > p,
+	.facilitator-list {
+		grid-column: auto;
+	}
+	.facilitator-list {
+		grid-template-columns: 1fr;
+		grid-template-rows: none;
+		grid-auto-flow: row;
+	}
 }

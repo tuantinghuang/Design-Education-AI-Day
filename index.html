@@ -19,12 +19,24 @@
 				aria-hidden="true"
 				focusable="false"
 			>
-				<path d="M0,0 L100,100 M100,0 L0,100" />
+				<path d="M0,0 L100,100" />
+				<path d="M100,0 L0,100" />
 			</svg>
-			<span>AI<br />series</span>
+			<span>AI <br />series</span>
 		</a>
 	</h1>
-	<nav>
+	<button
+		class="menu-toggle"
+		type="button"
+		aria-expanded="false"
+		aria-controls="site-nav"
+		aria-label="Menu"
+	>
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
+	<nav id="site-nav">
 		<ul>
 			<li><a href="about.html">About</a></li>
 			<li><a href="organization.html">Organization</a></li>
@@ -35,26 +47,33 @@
 			</li>
 		</ul>
 	</nav>
+	<script>
+		document.querySelector('.menu-toggle').addEventListener('click', (e) => {
+			const open = e.currentTarget.getAttribute('aria-expanded') !== 'true';
+			e.currentTarget.setAttribute('aria-expanded', open);
+			e.currentTarget.closest('header').classList.toggle('menu-open', open);
+		});
+	</script>
 </header>
 
 
 		<section id="intro">
-	In response to the impact and challenges that AI brings to design classrooms,
-	we wanted to organize a day that leaves more room for direct conversation and
-	tangible practice, rather than talks and keynotes. The programme centres on
-	guided discussions, hands-on workshops, and moments of collaborative
-	co-creation, organised around experiences that educators are navigating right
-	now.
+	<div>
+		In response to the impact and challenges that AI brings to design
+		classrooms, we wanted to organize a day that leaves more room for direct
+		conversation and tangible practice, rather than talks and keynotes. The
+		programme centres on guided discussions, hands-on workshops, and moments of
+		collaborative co-creation, organised around experiences that educators are
+		navigating right now.
+	</div>
 </section>
-
+<section class="event-heading">
+	<h2>#1 Design Education x AI Day (Pilot)</h2>
+	<p>June 8th, 2026</p>
+</section>
 <section class="module">
 	<a href="./content/dexai_pilot_intro.html" class="card card__highlight">
-		<h3 class="card-title">
-			Design Edu x AI Pilot <br />
-			--- Programme Overview
-		</h3>
-
-		<p class="card-caption">June 8th, 2026</p>
+		<h3 class="card-title">Programme Overview</h3>
 	</a>
 	<a href="./content/acknowledging_ai.html" class="card">
 		<h3 class="card-title">Acknowledging AI</h3>
@@ -75,8 +94,7 @@
 		<h3 class="card-title">What Makes Design Unique</h3>
 	</a>
 	<a href="./content/dexai_pilot_outro.html" class="card card__highlight">
-		<h3 class="card-title">Event Outro</h3>
-		<p class="card-caption">June 8th, 2026</p>
+		<h3 class="card-title">Outro & Reflection</h3>
 	</a>
 </section>
 
@@ -94,7 +112,6 @@
 				</li>
 			</ul>
 		</nav>
-		<p>&copy; 2026 Design Education x AI</p>
 	</div>
 	<div class="right">
 		<b>Partners</b>
@@ -105,6 +122,9 @@
 			<li>Wageningen University & Research</li>
 			<li>Design United</li>
 		</ul>
+	</div>
+	<div class="copyright">
+		<p>&copy; 2026 Design Education x AI</p>
 	</div>
 </footer>
 
