@@ -323,6 +323,16 @@ footer a:hover {
 footer p {
 	color: var(--color-gray);
 }
+/* desktop: partners sit flush against the right edge, like the header nav */
+@media (min-width: 1025px) {
+	footer .right {
+		justify-self: end;
+		text-align: right;
+	}
+	footer .right ul {
+		align-items: flex-end;
+	}
+}
 @media (max-width: 768px) {
 	footer {
 		grid-template-columns: 1fr;
