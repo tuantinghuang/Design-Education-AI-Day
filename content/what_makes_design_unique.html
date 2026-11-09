@@ -1,4 +1,64 @@
-<section data-type="article">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What Makes Design Unique | Design Education x AI</title>
+    <link rel="stylesheet" href="../style.css" />
+	<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  </head>
+  <body>
+    <!-- HEADER:START -->
+    <header>
+	<h1 class="header-title">
+		<a href="../index.html">
+			<span>Design<br />Education</span>
+			<svg
+				class="title-graphic"
+				viewBox="0 0 100 100"
+				preserveAspectRatio="none"
+				aria-hidden="true"
+				focusable="false"
+			>
+				<path d="M0,0 L100,100" />
+				<path d="M100,0 L0,100" />
+			</svg>
+			<span>AI <br />series</span>
+		</a>
+	</h1>
+	<button
+		class="menu-toggle"
+		type="button"
+		aria-expanded="false"
+		aria-controls="site-nav"
+		aria-label="Menu"
+	>
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
+	<nav id="site-nav">
+		<ul>
+			<li><a href="../about.html">About</a></li>
+			<li><a href="../organization.html">Organization</a></li>
+			<li>
+				<a href="https://designandai.nl/" target="_blank"
+					>Design & AI Symposium</a
+				>
+			</li>
+		</ul>
+	</nav>
+	<script>
+		document.querySelector('.menu-toggle').addEventListener('click', (e) => {
+			const open = e.currentTarget.getAttribute('aria-expanded') !== 'true';
+			e.currentTarget.setAttribute('aria-expanded', open);
+			e.currentTarget.closest('header').classList.toggle('menu-open', open);
+		});
+	</script>
+</header>
+
+    <!-- HEADER:END -->
+    <section data-type="article">
 <div data-type="article-header">
   <h1 id="what-makes-design-as-a-discipline-unique">What makes design as a discipline unique?</h1>
   <div class="author">Tuan Huang</div>
@@ -37,3 +97,36 @@
   <p></p>
 </div>
 </section>
+    <!-- FOOTER:START -->
+    <footer id="footer">
+	<div class="left">
+		<nav>
+			<ul>
+				<li><a href="../about.html">About</a></li>
+				<li><a href="../organization.html">Organization</a></li>
+				<li>
+					<a href="https://designandai.nl/" target="_blank"
+						>Design & AI Symposium</a
+					>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<div class="right">
+		<b>Partners</b>
+		<ul>
+			<li>Eindhoven University of Technology</li>
+			<li>TU Delft</li>
+			<li>University of Twente</li>
+			<li>Wageningen University & Research</li>
+			<li>Design United</li>
+		</ul>
+	</div>
+	<div class="copyright">
+		<p>&copy; 2026 Design Education x AI</p>
+	</div>
+</footer>
+
+    <!-- FOOTER:END -->
+  </body>
+</html>
